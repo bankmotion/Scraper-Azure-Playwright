@@ -16,7 +16,7 @@ export async function scraperTrigger(request: HttpRequest, context: InvocationCo
   if (request.method === "POST") {
     try {
       const requestBody = await request.json();
-      console.log({requestBody})
+      console.log({ requestBody })
       serialNrs = (requestBody as RequestBody).serialNrs || []
     } catch (err) {
       let errMsg = '';
@@ -47,11 +47,14 @@ export async function scraperTrigger(request: HttpRequest, context: InvocationCo
   }
 
   try {
-    const results = await scraperService.getDetails(serialNrs)
+    const devices = await scraperService.getDetails(serialNrs)
 
     return {
       status: 200,
-      body: JSON.stringify({ results })
+      body: JSON.stringify({
+        status: true,
+        devices
+      })
     }
   } catch (err) {
     let errMsg = '';

@@ -1,9 +1,9 @@
 import { Browser, chromium, Page } from "playwright"
 import { BlobServiceClient } from "@azure/storage-blob"
 import { config } from "../utils/config"
-import { Result } from "../types/Result"
+import { Device, Entitlement, Result, SupportLevel } from "../types/Result"
 import { delay, randomPause } from "../utils/utils"
-import { ObjectId } from "../utils/constant"
+import { ObjectId, TableIndex } from "../utils/constant"
 import { loadBrowserState, runPlaywright, saveBrowserState } from "../functions/playwright"
 
 export class Scraper {
@@ -66,28 +66,128 @@ export class Scraper {
     await saveBrowserState(this.page.context())
   }
 
-  async getDetail(serialNr: string): Promise<Result> {
+  async getDetail(serialNr: string): Promise<Device> {
     if (!this.page) throw new Error("Page is not initialized")
+    let data: Device = {
+      success: false,
+      serialNumber: serialNr,
+      productNumber: "",
+      productName: "",
+      entitlements: []
+    };
 
     console.log(`Start data scraping :${serialNr}`)
 
     // Input the serial number
+    await randomPause(this.page, 7, 10)
     await this.page.waitForSelector(ObjectId.InputSerialNr)
     await this.page.fill(ObjectId.InputSerialNr, serialNr)
     await randomPause(this.page)
-
-    console.log("hi")
 
     // Click submit button
     await this.page.waitForSelector(ObjectId.ButtonSerialNr)
     await this.page.click(ObjectId.ButtonSerialNr)
 
-    let result: Result = { result: "rest", serialNr };
-    console.log({ result })
-    
+    try {
+      // Wait for product modal or subtitle change
+      const modalPromise = this.page.waitForSelector(ObjectId.MultiProductModal, { timeout: 20000 })
+      const notFoundPromise = this.page.waitForSelector(ObjectId.NoDataFound, { state: "visible", timeout: 20000 });
+      const subtitlePromise = this.page.waitForSelector(ObjectId.SerialNrLabel, { state: "visible", timeout: 20000 })
+
+      const result = await Promise.race([modalPromise, notFoundPromise, subtitlePromise])
+
+      if (result) {
+        await randomPause(this.page)
+
+        if (await this.page.isVisible(ObjectId.MultiProductModal)) {
+          console.log("Modal appeared")
+
+          // find and click the cancel button in the modal
+          const cancelBtn = this.page.locator(ObjectId.MultiModalCancelBtn)
+          await cancelBtn.click()
+          console.log("clicked cancel")
+          data.success = false
+        } else if (await this.page.isVisible(ObjectId.NoDataFound)) {
+          console.log("Not found data")
+          data.success = false
+        } else if (await this.page.isVisible(ObjectId.SerialNrLabel)) {
+          // Subtitle changed
+          console.log("Subtitle chanaged without modal")
+
+          // Get device data
+          data.success = true;
+          data.productNumber = await this.page.locator(ObjectId.ProductNrValue).textContent()
+          data.productName = await this.page.locator(ObjectId.ProductNameValue).textContent()
+
+          const table = this.page.locator(ObjectId.TBodyValue)
+          await table.waitFor()
+          const rows = this.page.locator(`tbody tr`)
+          const rowCount = await rows.count()
+
+          // Retrieved table data
+          const tableData: string[][] = [];
+          for (let i = 0; i < rowCount; i++) {
+            const row = rows.nth(i)
+            let cells = row.locator("th, td")
+            let cellCount = await cells.count();
+            const rowData: string[] = []
+            for (let j = 0; j < cellCount; j++) {
+              rowData.push(await cells.nth(j).textContent())
+            }
+            tableData.push(rowData)
+          }
+
+          let previousEntitlement = "";
+          for (const tbData of tableData) {
+            if (!previousEntitlement) {
+              previousEntitlement = tbData[TableIndex.Type]
+            }
+            if (tbData[TableIndex.Type]) {
+              const newEntitlement: Entitlement = {
+                type: tbData[TableIndex.Type],
+                serviceType: tbData[TableIndex.ServiceType],
+                supportLevels: []
+              }
+              data.entitlements.push(newEntitlement)
+            }
+
+            // add new supportLevel
+            const newSupportLevel: SupportLevel = {
+              startDate: tbData[TableIndex.StartDate],
+              endDate: tbData[TableIndex.EndDate],
+              serviceLevel: tbData[TableIndex.ServiceLevel].split('\n').map(item => item.trim()),
+              deliverables: tbData[TableIndex.deliverables].split('\n').map(item => item.trim()),
+              status: tbData[TableIndex.Status]
+            }
+
+            data.entitlements[data.entitlements.length - 1].supportLevels.push(newSupportLevel)
+
+            previousEntitlement = tbData[TableIndex.Type]
+          }
+
+          await randomPause(this.page)
+          // Click check another product button
+          const checkAnotherBtn = this.page.locator(ObjectId.CheckAnotherBtn)
+          await checkAnotherBtn.click()
+        }
+      }
+
+
+    } catch (err) {
+      if (err.name === "TimeoutError") {
+
+      } else {
+        console.error(`Scraper.ts=>getDetail()=>An unexpected error occured: ${err}`)
+      }
+    }
+
+
+
+    console.log({ data })
+
     await randomPause(this.page, 5, 10)
 
-    return result
+    return data
   }
 
   async close(): Promise<void> {

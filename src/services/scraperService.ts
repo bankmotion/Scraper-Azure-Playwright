@@ -1,5 +1,5 @@
 import { Scraper } from "../scraper/Scraper";
-import { Result } from "../types/Result";
+import { Device, Result } from "../types/Result";
 import { config } from "../utils/config";
 
 export class ScraperService {
@@ -9,17 +9,18 @@ export class ScraperService {
     this.scraper = new Scraper()
   }
 
-  async getDetails(serialNrs: string[]): Promise<Result[]> {
+  async getDetails(serialNrs: string[]): Promise<Device[]> {
     console.log("start getDeatils")
     await this.scraper.init()
 
-    const results: Result[] = [];
+    const devices: Device[] = [];
     for (const serialNr of serialNrs) {
-      const result = await this.scraper.getDetail(serialNr)
-      results.push(result)
+      console.log({serialNr})
+      const device = await this.scraper.getDetail(serialNr)
+      devices.push(device)
     }
-    console.log({results})
+    console.log({ devices })
 
-    return results
+    return devices
   }
 }
