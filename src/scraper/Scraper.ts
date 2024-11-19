@@ -4,7 +4,7 @@ import { config } from "../utils/config"
 import { Device, Entitlement, Result, SupportLevel } from "../types/Result"
 import { delay, randomPause } from "../utils/utils"
 import { ObjectId, TableIndex } from "../utils/constant"
-import { loadBrowserState, runPlaywright, saveBrowserState } from "../functions/playwright"
+import { loadBrowserState, runPlaywright, saveBrowserState } from "../services/playwright"
 
 export class Scraper {
   private browser: Browser | null = null
