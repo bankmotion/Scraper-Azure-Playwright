@@ -1,77 +1,85 @@
-import { app, HttpRequest, HttpResponseInit, InvocationContext } from "@azure/functions";
+import {
+  app,
+  HttpRequest,
+  HttpResponseInit,
+  InvocationContext,
+} from "@azure/functions";
 import { ScraperService } from "../services/scraperService";
 
 interface RequestBody {
-  serialNrs: string[]
+  serialNrs: string[];
 }
 
-const scraperService = new ScraperService()
+const scraperService = new ScraperService();
 
-export async function scraperTrigger(request: HttpRequest, context: InvocationContext): Promise<HttpResponseInit> {
+export async function scraperTrigger(
+  request: HttpRequest,
+  context: InvocationContext
+): Promise<HttpResponseInit> {
   context.log(`Http function processed request for url "${request.url}"`);
 
-  let serialNrs: string[] = []
+  let serialNrs: string[] = [];
 
   // Get post request
   if (request.method === "POST") {
     try {
       const requestBody = await request.json();
-      console.log({ requestBody })
-      serialNrs = (requestBody as RequestBody).serialNrs || []
+      console.log({ requestBody });
+      serialNrs = (requestBody as RequestBody).serialNrs || [];
     } catch (err) {
-      let errMsg = '';
+      let errMsg = "";
       if (err instanceof Error) {
-        errMsg = err.message
+        errMsg = err.message;
       } else {
-        errMsg = "Unknown error"
+        errMsg = "Unknown error";
       }
       return {
         status: 500,
-        body: JSON.stringify({ error: `Internal server error: ${err}` })
-      }
+        body: JSON.stringify({ error: `Internal server error: ${err}` }),
+      };
     }
   } else {
     return {
       status: 405,
-      body: JSON.stringify({ error: "Method not allowed. Please use POST" })
-    }
+      body: JSON.stringify({ error: "Method not allowed. Please use POST" }),
+    };
   }
 
-  console.log({ serialNrs })
+  console.log({ serialNrs });
 
   if (!serialNrs || serialNrs.length === 0) {
     return {
       status: 400,
-      body: JSON.stringify({ error: "No serial numbers provided" })
-    }
+      body: JSON.stringify({ error: "No serial numbers provided" }),
+    };
   }
 
   try {
-    const devices = await scraperService.getDetails(serialNrs)
+    const devices = await scraperService.getDetails(serialNrs);
 
     return {
       status: 200,
       body: JSON.stringify({
         status: true,
-        devices
-      })
-    }
+        devices,
+      }),
+    };
   } catch (err) {
-    let errMsg = '';
+    let errMsg = "";
     if (err instanceof Error) {
-      errMsg = err.message
+      errMsg = err.message;
     } else {
-      errMsg = 'Unknown error'
+      errMsg = "Unknown error";
     }
     return {
       status: 500,
-      body: JSON.stringify({ error: `Internal server error: ${errMsg}` })
-    }
+      body: JSON.stringify({ error: `Internal server error: ${errMsg}` }),
+    };
   }
-};
+}
 
-app.http('scraperTrigger', {
-  methods: ['GET', 'POST'],
-  authLevel: 'anonymous',
-  handler: scraperTrigger
+app.http("scraperTrigger", {
+  methods: ["GET", "POST"],
+  authLevel: "anonymous",
+  handler: scraperTrigger,
 });

@@ -1,6 +1,6 @@
 export interface Result {
   success: boolean;
-  devices: Device[]
+  devices: Device[];
 }
 
 export interface Device {
@@ -9,13 +9,13 @@ export interface Device {
   error?: string;
   productNumber?: string;
   productName?: string;
-  entitlements?: Entitlement[]
+  entitlements?: Entitlement[];
 }
 
 export interface Entitlement {
   type: string;
   serviceType: string;
-  supportLevels: SupportLevel[]
+  supportLevels: SupportLevel[];
 }
 
 export interface SupportLevel {
@@ -23,5 +23,5 @@ export interface SupportLevel {
   endDate?: string;
   serviceLevel?: string[];
   deliverables?: string[];
-  status?: string
+  status?: string;
 }
