@@ -69,11 +69,8 @@ export class Scraper {
   async getDetail(serialNr: string): Promise<Device> {
     if (!this.page) throw new Error("Page is not initialized")
     let data: Device = {
-      success: false,
+      success: "false",
       serialNumber: serialNr,
-      productNumber: "",
-      productName: "",
-      entitlements: []
     };
 
     console.log(`Start data scraping :${serialNr}`)
@@ -106,18 +103,20 @@ export class Scraper {
           const cancelBtn = this.page.locator(ObjectId.MultiModalCancelBtn)
           await cancelBtn.click()
           console.log("clicked cancel")
-          data.success = false
+          data.success = "false"
+          data.error = "NeedModelNumber"
         } else if (await this.page.isVisible(ObjectId.NoDataFound)) {
           console.log("Not found data")
-          data.success = false
+          data.success = "false"
+          data.error = "NotFound"
         } else if (await this.page.isVisible(ObjectId.SerialNrLabel)) {
           // Subtitle changed
           console.log("Subtitle chanaged without modal")
 
           // Get device data
-          data.success = true;
-          data.productNumber = await this.page.locator(ObjectId.ProductNrValue).textContent()
-          data.productName = await this.page.locator(ObjectId.ProductNameValue).textContent()
+          data.success = "true";
+          data.productNumber = await this.page.locator(ObjectId.ProductNrValue).textContent() || undefined
+          data.productName = await this.page.locator(ObjectId.ProductNameValue).textContent() || undefined
 
           const table = this.page.locator(ObjectId.TBodyValue)
           await table.waitFor()
@@ -148,19 +147,26 @@ export class Scraper {
                 serviceType: tbData[TableIndex.ServiceType],
                 supportLevels: []
               }
+              if (!data.entitlements) {
+                data.entitlements = []
+              }
               data.entitlements.push(newEntitlement)
             }
 
             // add new supportLevel
+            const serviceLevel = tbData[TableIndex.ServiceLevel].split('\n').map(item => item.trim()).filter(item => item !== "")
+            const deliverables = tbData[TableIndex.deliverables].split('\n').map(item => item.trim()).filter(item => item !== "")
             const newSupportLevel: SupportLevel = {
-              startDate: tbData[TableIndex.StartDate],
-              endDate: tbData[TableIndex.EndDate],
-              serviceLevel: tbData[TableIndex.ServiceLevel].split('\n').map(item => item.trim()),
-              deliverables: tbData[TableIndex.deliverables].split('\n').map(item => item.trim()),
-              status: tbData[TableIndex.Status]
+              startDate: tbData[TableIndex.StartDate] ? (new Date(tbData[TableIndex.StartDate])).toISOString() : undefined,
+              endDate: tbData[TableIndex.EndDate] ? (new Date(tbData[TableIndex.EndDate])).toISOString() : undefined,
+              serviceLevel: serviceLevel.length > 0 ? serviceLevel : undefined,
+              deliverables: deliverables.length > 0 ? deliverables : undefined,
+              status: tbData[TableIndex.Status] || undefined
             }
 
-            data.entitlements[data.entitlements.length - 1].supportLevels.push(newSupportLevel)
+            if (newSupportLevel.startDate || newSupportLevel.endDate || newSupportLevel.serviceLevel || newSupportLevel.deliverables || newSupportLevel.status) {
+              data.entitlements[data.entitlements.length - 1].supportLevels.push(newSupportLevel)
+            }
 
             previousEntitlement = tbData[TableIndex.Type]
           }
@@ -174,18 +180,17 @@ export class Scraper {
 
 
     } catch (err) {
+      data.success = "false";
+      data.error = "HPE Server Error, try again later"
       if (err.name === "TimeoutError") {
-
+        data.error = "Server reponse timeout exceeds"
       } else {
         console.error(`Scraper.ts=>getDetail()=>An unexpected error occured: ${err}`)
       }
     }
-
-
-
     console.log({ data })
 
-    await randomPause(this.page, 5, 10)
+    await randomPause(this.page)
 
     return data
   }

@@ -4,11 +4,12 @@ export interface Result {
 }
 
 export interface Device {
-  success: boolean;
+  success: "true" | "false";
   serialNumber: string;
-  productNumber: string;
-  productName: string;
-  entitlements: Entitlement[]
+  error?: string;
+  productNumber?: string;
+  productName?: string;
+  entitlements?: Entitlement[]
 }
 
 export interface Entitlement {
@@ -18,9 +19,9 @@ export interface Entitlement {
 }
 
 export interface SupportLevel {
-  startDate: string;
-  endDate: string;
-  serviceLevel: string[];
-  deliverables: string[];
-  status: string
+  startDate?: string;
+  endDate?: string;
+  serviceLevel?: string[];
+  deliverables?: string[];
+  status?: string
 }
