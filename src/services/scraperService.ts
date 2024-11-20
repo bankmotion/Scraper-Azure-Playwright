@@ -6,21 +6,17 @@ export class ScraperService {
   private scraper: Scraper;
 
   constructor() {
+    console.log("start getDeatils");
     this.scraper = new Scraper();
   }
 
-  async getDetails(serialNrs: string[]): Promise<Device[]> {
-    console.log("start getDeatils");
+  async init() {
     await this.scraper.init();
+  }
 
-    const devices: Device[] = [];
-    for (const serialNr of serialNrs) {
-      console.log({ serialNr });
-      const device = await this.scraper.getDetail(serialNr);
-      devices.push(device);
-    }
-    console.log({ devices });
+  async getDetail(serialNr: string): Promise<Device> {
+    const device = await this.scraper.getDetail(serialNr);
 
-    return devices;
+    return device;
   }
 }
