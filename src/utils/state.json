@@ -2,20 +2,20 @@
   "cookies": [
     {
       "name": "X-Uaa-Csrf",
-      "value": "7ntMiXPrdEpP9bZHeankXl",
+      "value": "ApNVq8dFeXeS3NrSVpw1cv",
       "domain": "support.hpe.com",
       "path": "/hpesc/uaa/",
-      "expires": 1732156418.864364,
+      "expires": 1732193847.876043,
       "httpOnly": true,
       "secure": true,
       "sameSite": "Lax"
     },
     {
-      "name": "BrowserId",
-      "value": "JLGBWaLzEe-si8flDlxBoA",
-      "domain": ".salesforce.com",
+      "name": "session",
+      "value": "1731635064881",
+      "domain": "login.salesforce.com",
       "path": "/",
-      "expires": 1763171064.824302,
+      "expires": -1,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -26,16 +26,6 @@
       "domain": "support.hpe.com",
       "path": "/",
       "expires": -1,
-      "httpOnly": false,
-      "secure": true,
-      "sameSite": "None"
-    },
-    {
-      "name": "AMCV_56B5A25055667EED7F000101%40AdobeOrg",
-      "value": "MCMID|45071467300569938930925978994898787436",
-      "domain": ".hpe.com",
-      "path": "/",
-      "expires": 1765331043,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -101,11 +91,31 @@
       "sameSite": "None"
     },
     {
-      "name": "session",
-      "value": "1731635064881",
-      "domain": "login.salesforce.com",
+      "name": "kndctr_56B5A25055667EED7F000101_AdobeOrg_identity",
+      "value": "CiY0NTA3MTQ2NzMwMDU2OTkzODkzMDkyNTk3ODk5NDg5ODc4NzQzNlITCL679-uyMhABGAEqBElSTDEwAPABvrv367Iy",
+      "domain": ".hpe.com",
+      "path": "/",
+      "expires": 1765763043,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "DWF-PROXY-SESSION-ID",
+      "value": "F9176DE44DCEE505DE4BCC60CB6F3E00.tomcat6-p1lg505362",
+      "domain": "support.hpe.com",
       "path": "/",
       "expires": -1,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "None"
+    },
+    {
+      "name": "BrowserId",
+      "value": "JLGBWaLzEe-si8flDlxBoA",
+      "domain": ".salesforce.com",
+      "path": "/",
+      "expires": 1763171064.824302,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -116,16 +126,6 @@
       "domain": "support.hpe.com",
       "path": "/",
       "expires": -1,
-      "httpOnly": false,
-      "secure": true,
-      "sameSite": "None"
-    },
-    {
-      "name": "sa_user_tracking_id",
-      "value": "ZzanX0e9AD4LbHmqwD63egAAAAM",
-      "domain": "support.hpe.com",
-      "path": "/",
-      "expires": 1763606031.386364,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -171,17 +171,17 @@
       "sameSite": "Lax"
     },
     {
-      "name": "autocomplete",
-      "value": "1",
+      "name": "sa_user_tracking_id",
+      "value": "ZzanX0e9AD4LbHmqwD63egAAAAM",
       "domain": "support.hpe.com",
       "path": "/",
-      "expires": 1737254030.885364,
-      "httpOnly": false,
+      "expires": 1763643453.502043,
+      "httpOnly": true,
       "secure": true,
       "sameSite": "None"
     },
     {
-      "name": "CookieConsentPolicy",
+      "name": "LSKey-c$CookieConsentPolicy",
       "value": "",
       "domain": "auth.hpe.com",
       "path": "/",
@@ -201,7 +201,7 @@
       "sameSite": "None"
     },
     {
-      "name": "LSKey-c$CookieConsentPolicy",
+      "name": "CookieConsentPolicy",
       "value": "",
       "domain": "auth.hpe.com",
       "path": "/",
@@ -209,6 +209,16 @@
       "httpOnly": false,
       "secure": false,
       "sameSite": "Lax"
+    },
+    {
+      "name": "autocomplete",
+      "value": "1",
+      "domain": "support.hpe.com",
+      "path": "/",
+      "expires": 1737291452.077043,
+      "httpOnly": false,
+      "secure": true,
+      "sameSite": "None"
     },
     {
       "name": "inst",
@@ -225,7 +235,7 @@
       "value": "00D80000000bPpK",
       "domain": "support.hpe.com",
       "path": "/",
-      "expires": 1763606030.885364,
+      "expires": 1763643452.077043,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -245,17 +255,17 @@
       "value": "c3RhdHVzPUFDVElWRSZ0eXBlPTYmb2lkPTAwRDgwMDAwMDAwYlBwSw==",
       "domain": "support.hpe.com",
       "path": "/",
-      "expires": 1737254029.626364,
+      "expires": 1737291452.658043,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
     },
     {
-      "name": "kndctr_56B5A25055667EED7F000101_AdobeOrg_identity",
-      "value": "CiY0NTA3MTQ2NzMwMDU2OTkzODkzMDkyNTk3ODk5NDg5ODc4NzQzNlITCL679-uyMhABGAEqBElSTDEwAPABvrv367Iy",
+      "name": "AMCV_56B5A25055667EED7F000101%40AdobeOrg",
+      "value": "MCMID|45071467300569938930925978994898787436",
       "domain": ".hpe.com",
       "path": "/",
-      "expires": 1765763043,
+      "expires": 1765331043,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -265,33 +275,23 @@
       "value": "A",
       "domain": ".hpe.com",
       "path": "/",
-      "expires": 1732073600.003364,
+      "expires": 1732111030.015043,
       "httpOnly": true,
       "secure": true,
       "sameSite": "Lax"
     },
     {
-      "name": "DWF-PROXY-SESSION-ID",
-      "value": "F9176DE44DCEE505DE4BCC60CB6F3E00.tomcat6-p1lg505362",
-      "domain": "support.hpe.com",
-      "path": "/",
-      "expires": -1,
-      "httpOnly": true,
-      "secure": true,
-      "sameSite": "None"
-    },
-    {
       "name": "TAsessionID",
-      "value": "8da10725-59db-4c08-92f4-7a0204cfffdf|NEW",
+      "value": "58f58bb2-8753-4526-9850-fcbc9a46b96f|NEW",
       "domain": ".hpe.com",
       "path": "/",
-      "expires": 1732071801,
+      "expires": 1732109231,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
     },
     {
-      "name": "CookieConsentPolicy",
+      "name": "LSKey-c$CookieConsentPolicy",
       "value": "",
       "domain": ".hpe.com",
       "path": "/",
@@ -301,7 +301,7 @@
       "sameSite": "Lax"
     },
     {
-      "name": "LSKey-c$CookieConsentPolicy",
+      "name": "CookieConsentPolicy",
       "value": "",
       "domain": ".hpe.com",
       "path": "/",
@@ -312,7 +312,7 @@
     },
     {
       "name": "xids",
-      "value": "102XgSuT7pURSOxZZwIq6FwfA",
+      "value": "1021wn8ILH3RR-sumjcaF31Fg",
       "domain": "auth.hpe.com",
       "path": "/",
       "expires": -1,
@@ -322,7 +322,7 @@
     },
     {
       "name": "sid",
-      "value": "102rK9GZjXlQuu5u3Dy41FOjw",
+      "value": "102fsVPTuKlSd6zGBMx7BS4pA",
       "domain": "auth.hpe.com",
       "path": "/",
       "expires": -1,
@@ -332,7 +332,7 @@
     },
     {
       "name": "JSESSIONID",
-      "value": "FB3E7020BBE528B9DE6908668D39ABEF",
+      "value": "2BEC41ABBC6B410AB79D41A3C796298A",
       "domain": "auth.hpe.com",
       "path": "/",
       "expires": -1,
@@ -342,7 +342,7 @@
     },
     {
       "name": "iam_dce_session",
-      "value": "xKsr2tAdPl15LfTk8uyUV9aSBys",
+      "value": "ZNVKh6n9Pi05HBBJ-QJXL_YO5Po",
       "domain": "support.hpe.com",
       "path": "/",
       "expires": -1,
@@ -352,7 +352,7 @@
     },
     {
       "name": "idccsrf",
-      "value": "47751679262720499121732070017773-4314600464706566694",
+      "value": "-87771515377422837917321074470031355932192575141820",
       "domain": ".hpe.com",
       "path": "/",
       "expires": -1,
@@ -365,7 +365,7 @@
       "value": "0:1",
       "domain": "support.hpe.com",
       "path": "/",
-      "expires": 1763606030.885364,
+      "expires": 1763643452.077043,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -375,7 +375,7 @@
       "value": "0:1",
       "domain": "support.hpe.com",
       "path": "/",
-      "expires": 1763606030.885364,
+      "expires": 1763643452.077043,
       "httpOnly": false,
       "secure": true,
       "sameSite": "None"
@@ -400,7 +400,7 @@
         },
         {
           "name": "fromURI",
-          "value": "%2Foauth2%2Faus43pf0g8mvh4ntv357%2Fv1%2Fauthorize%3Fgtenabled%3Dtrue%26response_type%3Dcode%26scope%3Dopenid%2520email%2520profile%2520telephone%2520offline_access%26client_id%3D0oafonampjRO8EezO357%26state%3DZCyKDUJyPanZ11sCtB0ASQdAvms%26redirect_uri%3Dhttps%253A%252F%252Fsupport.hpe.com%252Fauth%252Fiam_callback%26nonce%3DccCF7Rys--xzt42aOwjN7TgqaGU5D5Es_lN4qwUTCl0%26code_challenge%3DilzVNmAzAuV5oynjWdOx0StWubtUijcjagqsCeh9pc0%26code_challenge_method%3DS256%26filter%3Dfalse"
+          "value": "%2Foauth2%2Faus43pf0g8mvh4ntv357%2Fv1%2Fauthorize%3Fgtenabled%3Dtrue%26response_type%3Dcode%26scope%3Dopenid%2520email%2520profile%2520telephone%2520offline_access%26client_id%3D0oafonampjRO8EezO357%26state%3DJLd-4E68vMVu_3l_SDFNyT0ln4c%26redirect_uri%3Dhttps%253A%252F%252Fsupport.hpe.com%252Fauth%252Fiam_callback%26nonce%3DnxQalOlC0QsPKv2zFQelZYZHTWv4MV2ohB6GtQ7qjew%26code_challenge%3DYNaAQjgumHoXf6MQ59rkiOnZnDKxTEK4dtQ62-riSTU%26code_challenge_method%3DS256%26filter%3Dfalse"
         },
         {
           "name": "consent:latest",

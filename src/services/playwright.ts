@@ -8,7 +8,7 @@ import { config } from "../utils/config";
 export const runPlaywright = async () => {
   // await downloadBrowserFromAzure()
 
-  const browser = await chromium.launch({ headless: false });
+  const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage();
 
   return { browser, page };
