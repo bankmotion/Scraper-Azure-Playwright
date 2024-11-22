@@ -33,6 +33,8 @@ const durableScraperOrchestrator: OrchestrationHandler = function* (
     outputs.push(yield context.df.callActivity(activityName, serialNr));
   }
 
+  yield context.df.callActivity("closeScraperService", null);
+
   const endTime = new Date().toISOString();
   const duration = new Date(endTime).getTime() - new Date(startTime).getTime();
 
@@ -61,6 +63,11 @@ const initScraperService: df.ActivityHandler = async () => {
   await scraperService.init();
 };
 df.app.activity("initScraperService", { handler: initScraperService });
+
+const closeBrowserService: df.ActivityHandler = async () => {
+  await scraperService.closeBrowser();
+};
+df.app.activity("closeScraperService", { handler: closeBrowserService });
 
 const durableScraperHttpStart: HttpHandler = async (
   request: HttpRequest,

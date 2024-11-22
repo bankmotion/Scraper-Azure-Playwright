@@ -19,4 +19,8 @@ export class ScraperService {
 
     return device;
   }
+
+  async closeBrowser() {
+    await this.scraper.close();
+  }
 }

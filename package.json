@@ -7,7 +7,7 @@
     "watch": "tsc -w",
     "clean": "rimraf dist",
     "prestart": "npm run clean && npm run build",
-    "start": "func start",
+    "start": "npm run prestart && func start",
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
@@ -16,7 +16,7 @@
     "dotenv": "^16.4.5",
     "durable-functions": "^3.0.0-alpha.5",
     "fs": "^0.0.1-security",
-    "playwright": "^1.48.2"
+    "playwright-core": "^1.49.0"
   },
   "devDependencies": {
     "@types/node": "^20.x",

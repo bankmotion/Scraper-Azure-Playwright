@@ -5,5 +5,27 @@
     "azureFunctions.projectRuntime": "~4",
     "debug.internalConsoleOptions": "neverOpen",
     "azureFunctions.projectLanguageModel": 4,
-    "azureFunctions.preDeployTask": "npm prune (functions)"
+    "azureFunctions.preDeployTask": "npm prune (functions)",
+    "containerApps.deploymentConfigurations": [
+        {
+            "label": "container-scraper-3",
+            "type": "AcrDockerBuildRequest",
+            "dockerfilePath": "Dockerfile",
+            "srcPath": ".",
+            "envPath": ".env",
+            "resourceGroup": "container-app-3",
+            "containerApp": "container-scraper-3",
+            "containerRegistry": "containerapp34e184d"
+        },
+        {
+            "label": "scraper",
+            "type": "AcrDockerBuildRequest",
+            "dockerfilePath": "Dockerfile",
+            "srcPath": ".",
+            "envPath": ".env",
+            "resourceGroup": "scraper-app-1",
+            "containerApp": "scraper",
+            "containerRegistry": "containerapp34e184d"
+        }
+    ]
 }

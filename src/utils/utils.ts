@@ -1,4 +1,4 @@
-import { Page } from "playwright";
+import { Page } from "playwright-core";
 
 export const delay = (ms: number) =>
   new Promise((resolve) => setTimeout(resolve, ms));

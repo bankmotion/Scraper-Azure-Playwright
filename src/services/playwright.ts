@@ -1,4 +1,4 @@
-import { Browser, BrowserContext, chromium, Page } from "playwright";
+import { Browser, chromium, BrowserContext, Page } from "playwright-core";
 import { downloadBrowserFromAzure } from "./azureStorage";
 import * as fs from "fs";
 import path = require("path");
@@ -8,8 +8,11 @@ import { config } from "../utils/config";
 export const runPlaywright = async () => {
   // await downloadBrowserFromAzure()
 
-  const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage();
+  const browser = await chromium.connectOverCDP(
+    "wss://production-sfo.browserless.io?token=RGV7nHz8BjNdfjde49ea4fa75478c17454b6df5436"
+  );
+  const context = await browser.newContext();
+  const page = await context.newPage();
 
   return { browser, page };
 };
