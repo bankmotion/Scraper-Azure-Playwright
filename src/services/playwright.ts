@@ -8,9 +8,7 @@ import { config } from "../utils/config";
 export const runPlaywright = async () => {
   // await downloadBrowserFromAzure()
 
-  const browser = await chromium.connectOverCDP(
-    "wss://production-sfo.browserless.io?token=RGV7nHz8BjNdfjde49ea4fa75478c17454b6df5436"
-  );
+  const browser = await chromium.connectOverCDP(config.playwrightEndpoint);
   const context = await browser.newContext();
   const page = await context.newPage();
 

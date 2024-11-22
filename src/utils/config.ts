@@ -7,6 +7,9 @@ export const config = {
   password: process.env.APP_PASSWORD || "",
   azureStoConnectionStr: process.env.AZURE_STORAGE_CONNECTION_STRING || "",
   blobContainerName: process.env.BLOB_CONTAINER_NAME || "",
+  playwrightEndpoint: `wss://production-sfo.browserless.io?token=${
+    process.env.PLAYRIGHT_ENDPOINT || ""
+  }`,
   localBrowserPath: path.resolve("./playwright-browsers"),
   browserPath: path.resolve(process.env.HOME || "", ".cache", "ms-playwright"),
   statePath: path.resolve("./src/utils/state.json"),
