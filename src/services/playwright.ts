@@ -9,7 +9,7 @@ export const runPlaywright = async () => {
   // await downloadBrowserFromAzure()
 
   const chromiumExecutablePath =
-    "/home/runner/.cache/ms-playwright/chromium-1148/chrome-linux/chrome";
+    "/home/runner/.cache/ms-playwright/chromium-1148";
   console.log({ chromiumExecutablePath });
   const browser = await chromium.launch({
     executablePath: chromiumExecutablePath,
