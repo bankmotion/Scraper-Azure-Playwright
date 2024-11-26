@@ -8,13 +8,11 @@ import { config } from "../utils/config";
 export const runPlaywright = async () => {
   // await downloadBrowserFromAzure()
 
-  const chromiumExecutablePath = path.join(
-    __dirname,
-    "../../chrome-win/chrome.exe"
-  );
+  const chromiumExecutablePath =
+    "/home/runner/.cache/ms-playwright/chromium-1148/chrome-linux/chrome";
   console.log({ chromiumExecutablePath });
   const browser = await chromium.launch({
-    // executablePath: chromiumExecutablePath,
+    executablePath: chromiumExecutablePath,
     headless: false,
   });
   const context = await browser.newContext();
