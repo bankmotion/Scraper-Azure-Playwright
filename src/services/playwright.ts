@@ -8,15 +8,12 @@ import { config } from "../utils/config";
 // Download the browser file if not already present
 export const runPlaywright = async () => {
   // await downloadBrowserFromAzure()
-  console.log("hello");
   const executablePath = await chromium.executablePath();
-  console.log({ executablePath });
   const browser = await playwright.chromium.launch({
     executablePath,
     headless: Boolean(chromium.headless),
     args: chromium.args,
   });
-  console.log("hie");
   const context = await browser.newContext();
   const page = await context.newPage();
 
