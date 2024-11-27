@@ -1,4 +1,5 @@
-import { Browser, chromium, BrowserContext, Page } from "playwright-core";
+import playwright from "playwright-core";
+import chromium from "@sparticuz/chromium";
 import { downloadBrowserFromAzure } from "./azureStorage";
 import * as fs from "fs";
 import path = require("path");
@@ -7,12 +8,11 @@ import { config } from "../utils/config";
 // Download the browser file if not already present
 export const runPlaywright = async () => {
   // await downloadBrowserFromAzure()
-  const chromiumExecutablePath =
-    "/home/runner/.cache/ms-playwright/chromium-1148";
-  console.log({ chromiumExecutablePath });
-  const browser = await chromium.launch({
-    // executablePath: chromiumExecutablePath,
-    headless: false,
+  const executablePath = await chromium.executablePath();
+  const browser = await playwright.chromium.launch({
+    executablePath,
+    headless: true,
+    args: chromium.args,
   });
   const context = await browser.newContext();
   const page = await context.newPage();
