@@ -7,8 +7,6 @@ import { config } from "../utils/config";
 // Download the browser file if not already present
 export const runPlaywright = async () => {
   // await downloadBrowserFromAzure()
-  await chromium.download();
-
   const chromiumExecutablePath =
     "/home/runner/.cache/ms-playwright/chromium-1148";
   console.log({ chromiumExecutablePath });
