@@ -12,7 +12,7 @@ export const runPlaywright = async () => {
   const executablePath = await chromium.executablePath();
   console.log({ executablePath });
   const browser = await playwright.chromium.launch({
-    executablePath,
+    // executablePath,
     headless: Boolean(chromium.headless),
     args: chromium.args,
   });
@@ -36,6 +36,7 @@ export const loadBrowserState = async (
   browser: playwright.Browser
 ): Promise<playwright.Page> => {
   try {
+    console.log(browser)
     const state = JSON.parse(fs.readFileSync(config.statePath, "utf8"));
 
     const context = await browser.newContext({ storageState: state });
