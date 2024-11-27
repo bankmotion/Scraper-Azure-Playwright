@@ -1,4 +1,4 @@
-import { Browser, chromium, BrowserContext, Page } from "playwright";
+import { Browser, chromium, BrowserContext, Page } from "playwright-core";
 import { downloadBrowserFromAzure } from "./azureStorage";
 import * as fs from "fs";
 import path = require("path");
