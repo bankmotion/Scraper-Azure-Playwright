@@ -12,7 +12,7 @@ export const runPlaywright = async () => {
     "/home/runner/.cache/ms-playwright/chromium-1148";
   console.log({ chromiumExecutablePath });
   const browser = await chromium.launch({
-    executablePath: chromiumExecutablePath,
+    // executablePath: chromiumExecutablePath,
     headless: false,
   });
   const context = await browser.newContext();
