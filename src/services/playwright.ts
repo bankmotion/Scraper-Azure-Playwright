@@ -8,12 +8,15 @@ import { config } from "../utils/config";
 // Download the browser file if not already present
 export const runPlaywright = async () => {
   // await downloadBrowserFromAzure()
+  console.log("hello");
   const executablePath = await chromium.executablePath();
+  console.log({ executablePath });
   const browser = await playwright.chromium.launch({
     executablePath,
-    headless: true,
+    headless: Boolean(chromium.headless),
     args: chromium.args,
   });
+  console.log("hie");
   const context = await browser.newContext();
   const page = await context.newPage();
 
@@ -21,13 +24,17 @@ export const runPlaywright = async () => {
 };
 
 // Save Browser State After login
-export const saveBrowserState = async (browserContext: playwright.BrowserContext) => {
+export const saveBrowserState = async (
+  browserContext: playwright.BrowserContext
+) => {
   await browserContext.storageState({ path: config.statePath });
   console.log("Saved the browser statue successfully");
 };
 
 // load the State from state.json
-export const loadBrowserState = async (browser: playwright.Browser): Promise<playwright.Page> => {
+export const loadBrowserState = async (
+  browser: playwright.Browser
+): Promise<playwright.Page> => {
   try {
     const state = JSON.parse(fs.readFileSync(config.statePath, "utf8"));
 

@@ -1,4 +1,4 @@
-import { Browser, chromium, Page } from "playwright-core";
+import { Browser, Page } from "playwright-core";
 import { BlobServiceClient } from "@azure/storage-blob";
 import { config } from "../utils/config";
 import { Device, Entitlement, Result, SupportLevel } from "../types/Result";
