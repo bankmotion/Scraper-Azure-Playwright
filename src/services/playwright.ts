@@ -21,13 +21,13 @@ export const runPlaywright = async () => {
 };
 
 // Save Browser State After login
-export const saveBrowserState = async (browserContext: BrowserContext) => {
+export const saveBrowserState = async (browserContext: playwright.BrowserContext) => {
   await browserContext.storageState({ path: config.statePath });
   console.log("Saved the browser statue successfully");
 };
 
 // load the State from state.json
-export const loadBrowserState = async (browser: Browser): Promise<Page> => {
+export const loadBrowserState = async (browser: playwright.Browser): Promise<playwright.Page> => {
   try {
     const state = JSON.parse(fs.readFileSync(config.statePath, "utf8"));
 
