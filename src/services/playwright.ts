@@ -32,7 +32,7 @@ export const loadBrowserState = async (browser: playwright.Browser): Promise<pla
     const state = JSON.parse(fs.readFileSync(config.statePath, "utf8"));
 
     const context = await browser.newContext({ storageState: state });
-    const page: Page = await context.newPage();
+    const page: playwright.Page = await context.newPage();
     return page;
   } catch (err) {
     console.error(`Error loading browser state: ${err}`);
