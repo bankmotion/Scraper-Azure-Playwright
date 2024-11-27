@@ -36,7 +36,8 @@ COPY ./src ./src
 RUN npm install
 
 # Install Playwright and required browsers
-RUN npm install -g playwright
+RUN npm install -g playwright@1.48.2
+
 RUN playwright install chromium
 
 FROM base AS shell
