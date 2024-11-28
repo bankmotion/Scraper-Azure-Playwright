@@ -90,7 +90,7 @@ export class Scraper {
         await delay(10);
         // Save browser state
         await saveBrowserState(this.page.context());
-      }, this.scrapeTimeout);
+      }, this.scrapeTimeout * 2);
     } catch (err) {
       console.error(`${Messages.LoginFailed}${err}`);
       throw err;
@@ -266,7 +266,6 @@ export class Scraper {
       previousEntitlement = tbData[TableIndex.Type];
     }
 
-    console.log(`Extracted details:`, data);
     return data;
   }
 
