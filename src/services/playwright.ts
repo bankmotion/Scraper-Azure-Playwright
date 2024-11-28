@@ -1,4 +1,5 @@
 import playwright from "playwright-core";
+import { chromium as chromiumLocal } from "playwright";
 import chromium from "@sparticuz/chromium";
 import * as fs from "fs";
 import path = require("path");
@@ -7,11 +8,15 @@ import { config } from "../utils/config";
 // Download the browser file if not already present
 export const runPlaywright = async () => {
   const executablePath = await chromium.executablePath();
-  const browser = await playwright.chromium.launch({
-    executablePath,
-    headless: Boolean(chromium.headless),
-    args: chromium.args,
-  });
+  const browser = !config.isLocal
+    ? await playwright.chromium.launch({
+        executablePath,
+        headless: Boolean(chromium.headless),
+        args: chromium.args,
+      })
+    : await chromiumLocal.launch({
+        headless: false,
+      });
   const context = await browser.newContext();
   const page = await context.newPage();
 
