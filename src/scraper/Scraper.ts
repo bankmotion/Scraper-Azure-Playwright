@@ -1,5 +1,4 @@
 import { Browser, Page } from "playwright-core";
-import { BlobServiceClient } from "@azure/storage-blob";
 import { config } from "../utils/config";
 import { Device, Entitlement, Result, SupportLevel } from "../types/Result";
 import { delay, randomPause, withTimeout } from "../utils/utils";
@@ -25,8 +24,8 @@ export class Scraper {
     console.log(config);
 
     // Load saved borwser state if available
-    const loadedPage = await loadBrowserState(this.browser);
-    if (loadedPage) this.page = loadedPage;
+    // const loadedPage = await loadBrowserState(this.browser);
+    // if (loadedPage) this.page = loadedPage;
 
     // Navigate to the main page or perform login
     await this.navigateToPage(config.basicPage);

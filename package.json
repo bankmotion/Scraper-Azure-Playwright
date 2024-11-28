@@ -7,8 +7,7 @@
     "watch": "tsc -w",
     "clean": "rimraf dist",
     "prestart": "npm run clean && npm run build",
-    "postinstall": "npx playwright install --with-deps",
-    "start": "npm run postinstall && npm run prestart && func start",
+    "start": "npm run prestart && func start",
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
