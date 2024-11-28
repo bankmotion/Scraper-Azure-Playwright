@@ -14,6 +14,6 @@ export const config = {
   browserPath: path.resolve(process.env.HOME || "", ".cache", "ms-playwright"),
   statePath: path.resolve("./src/utils/state.json"),
   basicPage: "https://support.hpe.com/connect/s/?card=wc",
-  scrapeTimeout: 45,
+  scrapeTimeout: 30,
   isLocal: process.env.ISLOCAL || ""
 };

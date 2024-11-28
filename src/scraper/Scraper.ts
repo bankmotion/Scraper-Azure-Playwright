@@ -99,6 +99,7 @@ export class Scraper {
 
   async getDetail(serialNr: string): Promise<Device> {
     if (!this.page) throw new Error(Messages.PageNotInitialized);
+    let status = 0;
 
     let data: Device = {
       success: "false",
@@ -111,8 +112,11 @@ export class Scraper {
       await withTimeout(async () => {
         // Input serialNr and submit button
         await this.page.fill(ObjectId.InputSerialNr, serialNr);
+        status = 1;
         await randomPause(this.page);
+        status = 2;
         await this.page.click(ObjectId.ButtonSerialNr);
+        status = 3;
 
         // Wait for one of the possible outcomes
         const result = await Promise.race([
@@ -131,7 +135,7 @@ export class Scraper {
 
         // Handle different outcomes
         if (await this.page.isVisible(ObjectId.MultiProductModal)) {
-          console.log(Messages.ModalAppeared);
+          status = 4;
           data.error = Messages.NeedModelNumber;
           data.success = "false";
 
@@ -140,9 +144,11 @@ export class Scraper {
           await cancelBtn.click();
         } else if (await this.page.isVisible(ObjectId.NoDataFound)) {
           console.log(Messages.NoDataFound);
+          status = 5;
           data.error = Messages.NotFound;
           data.success = "false";
         } else if (await this.page.isVisible(ObjectId.SerialNrLabel)) {
+          status = 6;
           console.log(Messages.SerialNumberFound);
           data = await this.extractDetails(serialNr);
           data.success = "true";
@@ -152,6 +158,7 @@ export class Scraper {
           await checkAnotherBtn.click();
         }
 
+        status = 7;
         await randomPause(this.page, 3, 5);
       }, this.scrapeTimeout);
     } catch (err) {
@@ -162,7 +169,7 @@ export class Scraper {
           : Messages.ServerError;
     }
 
-    console.log("Scraping data", data);
+    console.log("Scraping data", data + " : status(" + status + " )");
     return data;
   }
 
