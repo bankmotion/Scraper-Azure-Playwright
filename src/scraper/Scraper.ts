@@ -169,7 +169,7 @@ export class Scraper {
           : Messages.ServerError;
     }
 
-    console.log("Scraping data", data + " : status(" + status + " )");
+    console.log("Scraping data " +status + "", data);
     return data;
   }
 
