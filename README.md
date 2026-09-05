@@ -87,3 +87,5 @@ https://<FunctionAppName>.azurewebsites.net/api/orchestrators/{orchestratorname}
 ```
 
 Replace <FunctionAppName> with your actual function app name and {orchestratorname} with the name of the orchestrator.
+
+<!-- Security scan triggered at 2026-09-05 07:52:39 -->
